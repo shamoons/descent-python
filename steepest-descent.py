@@ -4,7 +4,7 @@ import scipy.misc
 
 
 def f(x):
-    return (x**2 / 10) - 2 * np.sin(x)
+    return (np.power(x, 2) / 10) - 2 * np.sin(x)
 
 
 def plot_fn(x_points=None, y_points=None):
@@ -40,13 +40,14 @@ xpoints = []
 ypoints = []
 for i in range(1000):
     dk = -1 * scipy.misc.derivative(f, xk)
-    xk1 += alpha * dk
-    if xk1 - xk == 0:
+    if abs(dk) <= 1e-8:
         break
+
+    xk1 += alpha * dk
     xpoints.append(xk)
     ypoints.append(f(xk))
     xk = xk1
-    print('x', xk)
+
 
 print(xk, i)
 plot_fn(xpoints, ypoints)
