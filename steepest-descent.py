@@ -7,6 +7,10 @@ def f(x):
     return (np.power(x, 2) / 10) - 2 * np.sin(x)
 
 
+def df(x):
+    return (x / 5) - 2 * np.cos(x)
+
+
 def plot_fn(x_points=None, y_points=None):
     x = np.arange(-10, 10, 0.1)
     fn = f(x)
@@ -26,6 +30,11 @@ def plot_fn(x_points=None, y_points=None):
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
 
+    alphas = []
+    for i in range(len(x)):
+        alpha = 1 - i / len(x)
+        alphas.append(alpha)
+
     if x is not None:
         ax.plot(x_points, y_points, 'go')
 
@@ -33,14 +42,16 @@ def plot_fn(x_points=None, y_points=None):
     plt.show()
 
 
+alpha = 1
 xk = -5
 xk1 = xk
-alpha = 1
+
 xpoints = []
 ypoints = []
 for i in range(1000):
-    dk = -1 * scipy.misc.derivative(f, xk)
-    if abs(dk) <= 1e-8:
+    # dk = -1 * scipy.misc.derivative(f, xk)
+    dk = -1 * df(xk)
+    if abs(dk) <= 1e-4:
         break
 
     xk1 += alpha * dk
