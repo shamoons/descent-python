@@ -15,12 +15,8 @@ def ddf(x):
     return 2 * np.sin(x) + 1/5
 
 
-# def dx(f, x):
-#     return abs(0-f(x))
-
-
 def newtons_method():
-    xk = 10
+    xk = -6
     xpoints = []
     ypoints = []
 
@@ -35,13 +31,6 @@ def newtons_method():
 
     print(xk, i)
     plot_fn(xpoints, ypoints)
-
-    # delta = dx(fn, x0)
-    # while delta > e:
-    # x0 = x0 - f(x0)/df(x0)
-    # # delta = dx(fn, x0)
-    # print 'Root is at: ', x0
-    # print 'f(x) at root is: ', f(x0)
 
 
 def plot_fn(x_points=None, y_points=None):
