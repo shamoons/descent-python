@@ -11,6 +11,39 @@ def df(x):
     return (x / 5) - 2 * np.cos(x)
 
 
+def ddf(x):
+    return 2 * np.sin(x) + 1/5
+
+
+# def dx(f, x):
+#     return abs(0-f(x))
+
+
+def newtons_method():
+    xk = 10
+    xpoints = []
+    ypoints = []
+
+    for i in range(1000):
+        xk1 = xk - df(xk) / ddf(xk)
+
+        if abs(xk - xk1) <= 1e-4:
+            break
+        xpoints.append(xk)
+        ypoints.append(f(xk))
+        xk = xk1
+
+    print(xk, i)
+    plot_fn(xpoints, ypoints)
+
+    # delta = dx(fn, x0)
+    # while delta > e:
+    # x0 = x0 - f(x0)/df(x0)
+    # # delta = dx(fn, x0)
+    # print 'Root is at: ', x0
+    # print 'f(x) at root is: ', f(x0)
+
+
 def plot_fn(x_points=None, y_points=None):
     x = np.arange(-10, 10, 0.1)
     fn = f(x)
@@ -42,23 +75,29 @@ def plot_fn(x_points=None, y_points=None):
     plt.show()
 
 
-alpha = 1
-xk = -5
-xk1 = xk
+def grad_descent():
+    alpha = 1
+    xk = 0.5
+    xk1 = xk
+    gamma = 1
 
-xpoints = []
-ypoints = []
-for i in range(1000):
-    # dk = -1 * scipy.misc.derivative(f, xk)
-    dk = -1 * df(xk)
-    if abs(dk) <= 1e-4:
-        break
+    xpoints = []
+    ypoints = []
+    for i in range(1000):
+        dk = -1 * df(xk)
 
-    xk1 += alpha * dk
-    xpoints.append(xk)
-    ypoints.append(f(xk))
-    xk = xk1
+        if abs(dk) <= 1e-4:
+            break
+
+        xk1 += alpha * dk
+        alpha = 1 - i / 20
+        xpoints.append(xk)
+        ypoints.append(f(xk))
+        xk = xk1
+
+    print(xk, i)
+    plot_fn(xpoints, ypoints)
 
 
-print(xk, i)
-plot_fn(xpoints, ypoints)
+# grad_descent()
+newtons_method()
