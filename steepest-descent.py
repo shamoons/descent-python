@@ -64,6 +64,36 @@ def plot_fn(x_points=None, y_points=None):
     plt.show()
 
 
+def armijo():
+    beta = 0.5
+    sigma = 0.5
+    step = 1
+    xk = -10
+    xk1 = 0
+    xpoints = []
+    ypoints = []
+
+    for i in range(1000):
+        m = 0
+        while f(xk) - f(xk - np.power(beta, m) * step * df(xk)) < sigma * np.power(beta, m) * step * np.power(np.linalg.norm(df(xk)), 2):
+            m += 1
+        alpha = np.power(beta, m) * step
+
+        dk = -1 * df(xk)
+
+        if abs(dk) <= 1e-4:
+            break
+
+        xk1 += alpha * dk
+        xpoints.append(xk)
+        ypoints.append(f(xk))
+        xk = xk1
+    print(xk, i)
+    plot_fn(xpoints, ypoints)
+
+    return
+
+
 def grad_descent():
     alpha = 1
     xk = 0.5
@@ -89,4 +119,5 @@ def grad_descent():
 
 
 # grad_descent()
-newtons_method()
+# newtons_method()
+armijo()
