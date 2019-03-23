@@ -65,17 +65,17 @@ def plot_fn(x_points=None, y_points=None):
 
 
 def armijo():
-    beta = 0.5
-    sigma = 0.5
+    beta = 0.1
+    sigma = 0.1
     step = 1
-    xk = -10
+    xk = 10
     xk1 = 0
     xpoints = []
     ypoints = []
 
     for i in range(1000):
         m = 0
-        while f(xk) - f(xk - np.power(beta, m) * step * df(xk)) < sigma * np.power(beta, m) * step * np.power(np.linalg.norm(df(xk)), 2):
+        while f(xk) - f(xk - np.power(beta, m) * step * df(xk)) < sigma * np.power(beta, m) * step * np.power(df(xk), 2):
             m += 1
         alpha = np.power(beta, m) * step
 
